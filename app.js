@@ -51,22 +51,21 @@ registerForm.addEventListener("submit", async (e) => {
     }
 });
 
-// Login
+// Login akun
 loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const username =
-        document.getElementById("loginUsername").value;
-
-    const password =
-        document.getElementById("loginPassword").value;
+    const username = document.getElementById("loginUsername").value;
+    const password = document.getElementById("loginPassword").value;
 
     message.textContent = "Memeriksa akun...";
 
     try {
         const response = await fetch("/api/login", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify({ username, password })
         });
 
@@ -76,6 +75,23 @@ loginForm.addEventListener("submit", async (e) => {
             message.textContent = result.message;
             return;
         }
+
+        const session = await fetch("/api/me", {
+            cache: "no-store"
+        });
+
+        const sessionResult = await session.json();
+
+        if (session.ok && sessionResult.loggedIn) {
+            window.location.href = "/dashboard.html";
+        } else {
+            message.textContent = "Sesi login belum berhasil dibuat.";
+        }
+
+    } catch (error) {
+        message.textContent = "Server belum tersedia.";
+    }
+});
 
         // Periksa apakah cookie sesi benar-benar valid
         const sessionResponse = await fetch("/api/me", {
