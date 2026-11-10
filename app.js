@@ -28,11 +28,8 @@ registerTab.addEventListener("click", () => {
 registerForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const username =
-        document.getElementById("registerUsername").value;
-
-    const password =
-        document.getElementById("registerPassword").value;
+    const username = document.getElementById("registerUsername").value;
+    const password = document.getElementById("registerPassword").value;
 
     message.textContent = "Menghubungkan ke server...";
 
@@ -44,14 +41,13 @@ registerForm.addEventListener("submit", async (e) => {
         });
 
         const result = await response.json();
-        message.textContent = result.message;
-
-    } catch {
+        message.textContent = result.message || "Registrasi selesai.";
+    } catch (error) {
         message.textContent = "Server belum tersedia.";
     }
 });
 
-// Login akun
+// Login
 loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -63,52 +59,34 @@ loginForm.addEventListener("submit", async (e) => {
     try {
         const response = await fetch("/api/login", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password })
         });
 
         const result = await response.json();
 
         if (!response.ok) {
-            message.textContent = result.message;
+            message.textContent = result.message || "Login gagal.";
             return;
         }
 
-        const session = await fetch("/api/me", {
-            cache: "no-store"
-        });
-
-        const sessionResult = await session.json();
-
-        if (session.ok && sessionResult.loggedIn) {
-            window.location.href = "/dashboard.html";
-        } else {
-            message.textContent = "Sesi login belum berhasil dibuat.";
-        }
-
-    } catch (error) {
-        message.textContent = "Server belum tersedia.";
-    }
-});
-
-        // Periksa apakah cookie sesi benar-benar valid
         const sessionResponse = await fetch("/api/me", {
+            method: "GET",
             cache: "no-store",
             credentials: "same-origin"
         });
 
-        const session = await sessionResponse.json();
+        const sessionResult = await sessionResponse.json();
 
-        if (sessionResponse.ok && session.loggedIn) {
+        if (sessionResponse.ok && sessionResult.loggedIn) {
+            message.textContent = "Login berhasil. Membuka dashboard...";
             window.location.href = "/dashboard.html";
         } else {
             message.textContent =
-                "Login diterima, tetapi sesi belum dapat diverifikasi.";
+                "Sesi login belum dapat diverifikasi.";
         }
 
-    } catch {
-        message.textContent = "Server belum tersedia.";
+    } catch (error) {
+        message.textContent = "Server belum tersedia atau terjadi kesalahan.";
     }
 });
