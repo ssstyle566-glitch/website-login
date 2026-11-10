@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kumpulan Aplikasi</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #172033;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+      margin: auto;
+      padding: 18px;
+    }
+
+    header {
+      text-align: center;
+      padding: 24px 10px 18px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 30px;
+      font-weight: 800;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      color: #687386;
+      font-size: 14px;
+    }
+
+    /* SEARCH NAVBAR */
+    .search {
+      flex: 1;
+      max-width: 910px;
+      margin: 0 28px;
+      position: relative;
+    }
+
+    .search input {
+      width: 100%;
+      height: 54px;
+      padding: 0 22px 0 58px;
+      border: 1px solid rgba(148, 163, 184, .08);
+      border-radius: 12px;
+      outline: none;
+      font-size: 16px;
+      font-weight: 500;
+      color: #e5e7eb;
+      background: #111820;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.015);
+      transition: .25s ease;
+    }
+
+    .search input::placeholder {
+      color: #aeb8c7;
+      opacity: 1;
+    }
+
+    .search input:focus {
+      border-color: rgba(0, 198, 255, .35);
+      box-shadow: 0 0 0 3px rgba(0, 198, 255, .08);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      width: 23px;
+      height: 23px;
+      transform: translateY(-50%);
+      color: #b8c2d1;
+      pointer-events: none;
+    }
+
+    .search-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .apps {
+      display: grid;
+      gap: 16px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 15px;
+      box-shadow: 0 8px 24px rgba(20, 35, 60, .08);
+      border: 1px solid #e9eef5;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(20, 35, 60, .12);
+    }
+
+    .app-image {
+      display: block;
+      width: 200px;
+      max-width: 75%;
+      height: auto;
+      margin: 2px auto 13px;
+      border-radius: 28px;
+    }
+
+    .card h2 {
+      text-align: center;
+      margin: 0 0 7px;
+      font-size: 20px;
+    }
+
+    .card p {
+      text-align: center;
+      margin: 0 0 13px;
+      color: #737e90;
+      font-size: 13px;
+    }
+
+    .button {
+      display: block;
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+      background: #55bde7;
+      color: white;
+      padding: 12px 15px;
+      border-radius: 12px;
+      font-weight: 700;
+      transition: .2s;
+    }
+
+    .button:hover {
+      background: #36a9d8;
+    }
+
+    .next:hover {
+      background: #36a9d8;
+    }
+
+    .empty {
+      display: none;
+      text-align: center;
+      padding: 25px;
+      color: #737e90;
+    }
+
+    footer {
+      text-align: center;
+      color: #8a94a5;
+      font-size: 12px;
+      padding: 22px 0 10px;
+    }
+
+
+    /* WhatsApp Floating Button */
+    .whatsapp-float {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #25D366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 6px 18px rgba(0,0,0,.22);
+      z-index: 9999;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.08);
+      box-shadow: 0 9px 24px rgba(0,0,0,.28);
+    }
+
+    .whatsapp-float:active {
+      transform: scale(.94);
+    }
+
+    .whatsapp-float svg {
+      width: 32px;
+      height: 32px;
+      fill: white;
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 14px; }
+      header h1 { font-size: 26px; }
+      .card { border-radius: 17px; }
+      .app-image { width: 180px; }
+    }
+
+        
+  /* NAVBAR */
+    .navbar{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      width:100%;
+      height:70px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 25px;
+      box-sizing:border-box;
+      background:rgba(255,255,255,.88);
+      backdrop-filter:blur(15px);
+      -webkit-backdrop-filter:blur(15px);
+      border-bottom:1px solid rgba(0,0,0,.08);
+      transition:.3s ease
+    }
+    
+    .nav-logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:20px;
+      font-weight:800;
+      color:#172033
+    }
+    
+    .logo-icon{
+      width:42px;
+      height:42px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:23px;
+      border-radius:12px;
+      background:linear-gradient(135deg,#4facfe,#00c6ff);
+      box-shadow:0 5px 15px rgba(0,150,255,.25);
+      overflow:hidden;
+      flex-shrink:0;
+    }
+
+    .logo-icon img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      border-radius:12px;
+    }
+
+    .nav-actions{
+      position:relative;
+      display:flex;
+      align-items:center;
+      gap:8px
+    }
+    
+    .theme-btn,.menu-btn{
+      width:42px;
+      height:42px;
+      border:none;
+      border-radius:50%;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:19px;
+      background:#f1f5f9;
+      transition:.25s ease
+    }
+    
+    .menu-btn{
+      font-size:25px;
+      line-height:1;
+      color:#172033
+    }
+    
+    .theme-btn:hover,.menu-btn:hover{
+      transform:scale(1.08);
+      background:#e5edf5
+    }
+    
+    .hamburger-menu{
+      display:none;
+      position:absolute;
+      top:52px;
+      right:0;
+      width:190px;
+      padding:8px;
+      background:rgba(255,255,255,.98);
+      border:1px solid #e5eaf1;
+      border-radius:16px;
+      box-shadow:0 12px 30px rgba(20,35,60,.16);
+      animation:menuSlide .18s ease
+    }
+    
+    .hamburger-menu.show{
+      display:block
+    }
+    
+    .hamburger-menu a{
+      display:block;
+      padding:12px 14px;
+      border-radius:11px;
+      text-decoration:none;
+      color:#172033;
+      font-size:15px;
+      font-weight:600;
+      transition:.2s ease
+    }
+    
+    .hamburger-menu a:hover{
+      background:#eef8ff;
+      color:#2196f3
+    }
+    
+    @keyframes menuSlide{
+      from{opacity:0;
+           transform:translateY(-7px)
+          }to{
+        opacity:1;
+        transform:translateY(0)
+      }}
+
+    /* =========================
+       DARK MODE
+    ========================= */
+
+    body.dark-mode {
+        background: #0f172a;
+        color: #e5e7eb;
+    }
+
+    body.dark-mode .navbar {
+        background: rgba(15, 23, 42, 0.88);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    body.dark-mode .nav-logo {
+        color: #f8fafc;
+    }
+
+    body.dark-mode .nav-menu a {
+        color: #cbd5e1;
+    }
+
+    body.dark-mode .nav-menu a:hover {
+        color: #60a5fa;
+        background: rgba(96, 165, 250, 0.12);
+    }
+
+    body.dark-mode .theme-btn {
+        background: #1e293b;
+    }
+
+    body.dark-mode .menu-btn{
+        background:#1e293b;
+        color:#f8fafc
+    }
+
+    body:not(.dark-mode) .search input {
+        color: #172033;
+        background: #f1f5f9;
+        border-color: #e2e8f0;
+    }
+
+    body:not(.dark-mode) .search input::placeholder {
+        color: #64748b;
+    }
+
+    body:not(.dark-mode) .search-icon {
+        color: #64748b;
+    }
+    
+    body.dark-mode .hamburger-menu{
+        background:rgba(15,23,42,.98);
+        border-color:rgba(255,255,255,.08)
+    }
+    
+    body.dark-mode .hamburger-menu a{
+        color:#cbd5e1
+    }
+    
+    body.dark-mode .hamburger-menu a:hover{
+        color:#60a5fa;
+        background:rgba(96,165,250,.12)
+    }
+
+    /* =========================
+       HP / MOBILE
+    ========================= */
+
+    @media (max-width: 600px) {
+
+    .navbar {
+        height: 62px;
+        padding: 0 15px;
+    }
+
+    .nav-logo {
+        font-size: 16px;
+    }
+
+    .logo-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 19px;
+    }
+
+    .logo-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .hamburger-menu { display: none; }
+
+    .search {
+        margin: 0 12px;
+        max-width: none;
+    }
+
+    .search input {
+        height: 44px;
+        padding-left: 46px;
+        font-size: 14px;
+        border-radius: 11px;
+    }
+
+    .search-icon {
+        left: 15px;
+        width: 20px;
+        height: 20px;
+    }
+
+    .theme-btn, .menu-btn { width: 38px; height: 38px; }
+    .menu-btn { font-size: 23px; }
+    .hamburger-menu { top: 48px; width: 180px; }
+}
+    
+  </style>
+</head>
+
+<body>
+  
+  <nav class="navbar">
+    <div class="nav-logo">
+      <div class="logo-icon">
+        <img src="logo.jpg">
+        </div>
+      <div>
+      <span>
+        Kumpulan Apk
+      </span>
+    </div>
+
+    <div class="search">
+      <span class="search-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="2.2"/>
+          <path d="M16 16L21 21" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <input id="search" type="search" placeholder="Cari aplikasi..." autocomplete="off" aria-label="Cari aplikasi">
+    </div>
+
+    <div class="nav-actions">
+      <button id="themeToggle" class="theme-btn" aria-label="Ubah tema">
+        🌙
+      </button>
+      <button id="menuToggle" class="menu-btn" aria-label="Buka menu" aria-expanded="false"> 
+        ☰
+      </button>
+      <div id="hamburgerMenu" class="hamburger-menu">
+        <a href="#home">
+          Home</a>
+        <a href="Tentang.html">
+          Tentang</a>
+        <a href="Gambar.html">
+          Gambar</a>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Tombol WhatsApp Mengambang -->
+  <!-- GANTI URL DI BAWAH dengan link Saluran WhatsApp kamu -->
+  <a
+    class="whatsapp-float"
+    href="https://whatsapp.com/channel/0029VbCrWgW8fewrQ4PWAq3E"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Buka Saluran WhatsApp"
+    title="Saluran WhatsApp"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M20.52 3.48A11.82 11.82 0 0 0 12.08 0C5.56 0 .25 5.3.25 11.82c0 2.08.54 4.11 1.56 5.9L.17 24l6.42-1.61a11.8 11.8 0 0 0 5.48 1.35h.01c6.52 0 11.82-5.3 11.82-11.82 0-3.16-1.23-6.13-3.38-8.44ZM12.09 21.7h-.01a9.84 9.84 0 0 1-5.02-1.37l-.36-.21-3.81.96 1.02-3.72-.23-.38a9.85 9.85 0 0 1-1.51-5.16C2.17 6.38 6.61 1.94 12.08 1.94c2.65 0 5.14 1.03 7.02 2.91a9.86 9.86 0 0 1 2.9 7.03c0 5.47-4.44 9.82-9.91 9.82Zm5.4-7.36c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.28-.47-2.44-1.5-.9-.8-1.5-1.79-1.67-2.09-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.5 1.69.64.71.23 1.36.2 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z"/>
+    </svg>
+  </a>
+
+  <main class="container" id="home">
+    <section class="apps" id="gambar">
+      <article class="card" data-name="halo777">
+        <img class="app-image" src="halo777.jpeg" alt="Halo777">
+        <h2>Halo777</h2>
+        <p>Aplikasi Halo777</p>
+        <a class="button" target="_blank" rel="noopener noreferrer"
+           href="https://halo777.loan?pid=406318562&channel=2010001&pkg=com.halo777.app">
+          Buka Aplikasi
+        </a>
+      </article>
+
+      <article class="card" data-name="Gacor Max">
+        <img class="app-image" src="gacormax.jpeg" alt="GacorMax">
+        <h2>GacorMax</h2>
+        <p>Aplikasi GacorMax</p>
+        <a class="button" target="_blank" rel="noopener noreferrer"
+           href="https://www.sharegacormax.cyou?pid=360669938&channel=2010001&pkg=com.gacormax.app">
+          Buka Aplikasi
+        </a>
+      </article>
+
+      <article class="card" data-name="SL777">
+        <img class="app-image" src="SL777.jpeg" alt="SL777">
+        <h2>SL777</h2>
+        <p>Aplikasi SL777</p>
+        <a class="button" target="_blank" rel="noopener noreferrer"
+           href="https://ohya777.co">
+          Buka Aplikasi
+        </a>
+      </article>
+
+      <article class="card" data-name="LuckSvip">
+        <img class="app-image" src="LuckSvip.jpeg" alt="LuckSvip">
+        <h2>LuckSvip</h2>
+        <p>Aplikasi LuckSvip</p>
+        <a class="button" target="_blank" rel="noopener noreferrer"
+           href="https://www.goggle.com">
+          Buka Aplikasi
+        </a>
+      </article>
+
+      <article class="card" data-name="Putar mega">
+        <img class="app-image" src="putarmega.jpeg" alt="Putar Mega">
+        <h2>Putar Mega</h2>
+        <p>Aplikasi Putar Mega</p>
+        <a class="button" target="_blank" rel="noopener noreferrer"
+           href="https://www.putarmega7.com?pid=486449592&channel=2010001&pkg=com.putarmega.app">
+          Buka Aplikasi
+        </a>
+      </article>
+
+      <article class="card" data-name="Dana Game">
+        <img class="app-image" src="danagame.jpeg" alt="Dana Game">
+        <h2>Dana Game</h2>
+        <p>Aplikasi Dana Game</p>
+        <a class="button" target="_blank" rel="noopener noreferrer"
+           href="https://www.goggle.com">
+          Buka Aplikasi
+        </a>
+      </article>
+
+      <article class="card" data-name="Super Hoki">
+        <img class="app-image" src="superhoki.jpeg" alt="Super Hoki">
+        <h2>Super Hoki</h2>
+        <p>Aplikasi Super Hoki</p>
+        <a class="button" target="_blank" rel="noopener noreferrer"
+           href="https://share5superhoki.win?pid=391535500&channel=2010001&pkg=com.superhoki.app">
+          Buka Aplikasi
+        </a>
+      </article>
+
+      <article class="card" data-name="Ohya777">
+        <img class="app-image" src="ohya777.jpeg" alt="ohya777">
+        <h2>Ohya777</h2>
+        <p>Aplikasi Ohya777</p>
+        <a class="button" target="_blank" rel="noopener noreferrer"
+           href="https://ohya777.co">
+          Buka Aplikasi
+        </a>
+      </article>
+
+      <article class="card" data-name="Hoki Time">
+        <img class="app-image" src="hokitime.jpeg" alt="Hoki Time">
+        <h2>Hoki Time</h2>
+        <p>Aplikasi Hoki Time</p>
+        <a class="button" target="_blank" rel="noopener noreferrer"
+           href="https://www.googgle.com">
+          Buka Aplikasi
+        </a>
+      </article>
+    </section>
+
+      <div class="empty" id="empty">
+        Aplikasi tidak ditemukan.
+      </div>
+    
+    <footer id="tentang">
+      © 2026 Stylee Networkk
+    </footer>
+    
+  </main>
+
+<script>
+  const themeToggle=document.getElementById("themeToggle"),
+    menuToggle=document.getElementById("menuToggle"),
+    hamburgerMenu=document.getElementById("hamburgerMenu");
+  themeToggle.addEventListener("click",()=>{
+    document.body.classList.toggle("dark-mode");
+  const dark=document.body.classList.contains("dark-mode");
+    themeToggle.textContent=dark?"☀️":"🌙";
+    localStorage.setItem("theme",dark?"dark":"light")});
+  if(localStorage.getItem("theme")==="dark"){
+    document.body.classList.add("dark-mode");
+    themeToggle.textContent="☀️"
+  }
+  menuToggle.addEventListener("click",e=>{
+    e.stopPropagation();
+    const open=hamburgerMenu.classList.toggle("show");
+    menuToggle.setAttribute("aria-expanded",open);
+    menuToggle.textContent=open?"✕":"☰"});
+  hamburgerMenu.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{
+    hamburgerMenu.classList.remove("show");
+    menuToggle.setAttribute("aria-expanded","false");
+    menuToggle.textContent="☰"}));
+  document.addEventListener("click",e=>{if(!hamburgerMenu.contains(e.target)&&!menuToggle.contains(e.target)){
+    hamburgerMenu.classList.remove("show");
+    menuToggle.setAttribute("aria-expanded","false");
+    menuToggle.textContent="☰"}});
+  const search=document.getElementById("search"),cards=document.querySelectorAll(".card"),empty=document.getElementById("empty");search.addEventListener("input",function(){const keyword=this.value.toLowerCase().trim();let visible=0;cards.forEach(card=>{const show=card.dataset.name.toLowerCase().includes(keyword);card.style.display=show?"":"none";if(show)visible++});empty.style.display=visible===0?"block":"none"});
+</script>
+  
+</body>
+</html>
