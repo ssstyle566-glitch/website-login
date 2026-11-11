@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tentang</title>
+  <style>
+    /* SEARCH NAVBAR */
+    .search {
+      flex: 1;
+      max-width: 910px;
+      margin: 0 28px;
+      position: relative;
+    }
+
+    .search input {
+      width: 100%;
+      height: 54px;
+      padding: 0 22px 0 58px;
+      border: 1px solid rgba(148, 163, 184, .08);
+      border-radius: 12px;
+      outline: none;
+      font-size: 16px;
+      font-weight: 500;
+      color: #e5e7eb;
+      background: #111820;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.015);
+      transition: .25s ease;
+    }
+
+    .search input::placeholder {
+      color: #aeb8c7;
+      opacity: 1;
+    }
+
+    .search input:focus {
+      border-color: rgba(0, 198, 255, .35);
+      box-shadow: 0 0 0 3px rgba(0, 198, 255, .08);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      width: 23px;
+      height: 23px;
+      transform: translateY(-50%);
+      color: #b8c2d1;
+      pointer-events: none;
+    }
+
+    .search-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      }
+
+    /* NAVBAR */
+    .navbar{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      width:100%;
+      height:70px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 25px;
+      box-sizing:border-box;
+      background:rgba(255,255,255,.88);
+      backdrop-filter:blur(15px);
+      -webkit-backdrop-filter:blur(15px);
+      border-bottom:1px solid rgba(0,0,0,.08);
+      transition:.3s ease
+    }
+    
+    .nav-logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:20px;
+      font-weight:800;
+      color:#172033
+    }
+    
+    .logo-icon{
+      width:42px;
+      height:42px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:23px;
+      border-radius:12px;
+      background:linear-gradient(135deg,#4facfe,#00c6ff);
+      box-shadow:0 5px 15px rgba(0,150,255,.25);
+      overflow:hidden;
+      flex-shrink:0;
+    }
+
+    .logo-icon img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      border-radius:12px;
+    }
+
+    .nav-actions{
+      position:relative;
+      display:flex;
+      align-items:center;
+      gap:8px
+    }
+    
+    .theme-btn,.menu-btn{
+      width:42px;
+      height:42px;
+      border:none;
+      border-radius:50%;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:19px;
+      background:#f1f5f9;
+      transition:.25s ease
+    }
+    
+    .menu-btn{
+      font-size:25px;
+      line-height:1;
+      color:#172033
+    }
+    
+    .theme-btn:hover,.menu-btn:hover{
+      transform:scale(1.08);
+      background:#e5edf5
+    }
+    
+    .hamburger-menu{
+      display:none;
+      position:absolute;
+      top:52px;
+      right:0;
+      width:190px;
+      padding:8px;
+      background:rgba(255,255,255,.98);
+      border:1px solid #e5eaf1;
+      border-radius:16px;
+      box-shadow:0 12px 30px rgba(20,35,60,.16);
+      animation:menuSlide .18s ease
+    }
+    
+    .hamburger-menu.show{
+      display:block
+    }
+    
+    .hamburger-menu a{
+      display:block;
+      padding:12px 14px;
+      border-radius:11px;
+      text-decoration:none;
+      color:#172033;
+      font-size:15px;
+      font-weight:600;
+      transition:.2s ease
+    }
+    
+    .hamburger-menu a:hover{
+      background:#eef8ff;
+      color:#2196f3
+    }
+    
+    @keyframes menuSlide{
+      from{opacity:0;
+           transform:translateY(-7px)
+          }to{
+        opacity:1;
+        transform:translateY(0)
+      }}
+
+    /* =========================
+       DARK MODE
+    ========================= */
+
+    body.dark-mode {
+        background: #0f172a;
+        color: #e5e7eb;
+    }
+
+    body.dark-mode .navbar {
+        background: rgba(15, 23, 42, 0.88);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    body.dark-mode .nav-logo {
+        color: #f8fafc;
+    }
+
+    body.dark-mode .nav-menu a {
+        color: #cbd5e1;
+    }
+
+    body.dark-mode .nav-menu a:hover {
+        color: #60a5fa;
+        background: rgba(96, 165, 250, 0.12);
+    }
+
+    body.dark-mode .theme-btn {
+        background: #1e293b;
+    }
+
+    body.dark-mode .menu-btn{
+        background:#1e293b;
+        color:#f8fafc
+    }
+
+    body:not(.dark-mode) .search input {
+        color: #172033;
+        background: #f1f5f9;
+        border-color: #e2e8f0;
+    }
+
+    body:not(.dark-mode) .search input::placeholder {
+        color: #64748b;
+    }
+
+    body:not(.dark-mode) .search-icon {
+        color: #64748b;
+    }
+    
+    body.dark-mode .hamburger-menu{
+        background:rgba(15,23,42,.98);
+        border-color:rgba(255,255,255,.08)
+    }
+    
+    body.dark-mode .hamburger-menu a{
+        color:#cbd5e1
+    }
+    
+    body.dark-mode .hamburger-menu a:hover{
+        color:#60a5fa;
+        background:rgba(96,165,250,.12)
+    }
+
+    /* =========================
+       HP / MOBILE
+    ========================= */
+
+    @media (max-width: 600px) {
+
+    .navbar {
+        height: 62px;
+        padding: 0 15px;
+    }
+
+    .nav-logo {
+        font-size: 16px;
+    }
+
+    .logo-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 19px;
+    }
+
+    .logo-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .hamburger-menu { display: none; }
+
+    .search {
+        margin: 0 12px;
+        max-width: none;
+    }
+
+    .search input {
+        height: 44px;
+        padding-left: 46px;
+        font-size: 14px;
+        border-radius: 11px;
+    }
+
+    .search-icon {
+        left: 15px;
+        width: 20px;
+        height: 20px;
+    }
+
+    .theme-btn, .menu-btn { width: 38px; height: 38px; }
+    .menu-btn { font-size: 23px; }
+    .hamburger-menu { top: 48px; width: 180px; }
+}
+
+    /* WhatsApp Floating Button */
+    .whatsapp-float {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #25D366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 6px 18px rgba(0,0,0,.22);
+      z-index: 9999;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.08);
+      box-shadow: 0 9px 24px rgba(0,0,0,.28);
+    }
+
+    .whatsapp-float:active {
+      transform: scale(.94);
+    }
+
+    .whatsapp-float svg {
+      width: 32px;
+      height: 32px;
+      fill: white;
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 14px; }
+      header h1 { font-size: 26px; }
+      .card { border-radius: 17px; }
+      .app-image { width: 180px; }
+    }
+    
+  
+/* ===== TENTANG WEBSITE MODERN ===== */
+    .about-page{
+      max-width:1100px;
+      margin:0 auto;
+      padding:30px 20px 70px
+    }
+    
+    .about-hero{
+      display:grid;
+      grid-template-columns:1fr 420px;
+      align-items:center;
+      gap:34px;
+      padding:42px;
+      border-radius:28px;
+      overflow:hidden;
+      background:linear-gradient(135deg,#172033,#1f3d63 58%,#2e8bc0);
+      box-shadow:0 18px 45px rgba(20,45,80,.18);
+      color:#fff
+    }
+
+    .about-eyebrow{
+      display:inline-block;
+      padding:7px 13px;
+      border:1px solid rgba(255,255,255,.25);
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:1.3px
+    }
+    
+    .about-hero h1{
+      margin:16px 0 12px;
+      font-size:clamp(40px,6vw,64px);
+      line-height:1;
+      letter-spacing:-2px
+    }
+
+    .about-hero h1 span{
+      color:#62c7f5
+    }
+    
+    .about-hero-text{
+      max-width:520px;
+      margin:0;
+      color:#dceafa;
+      font-size:17px;
+      line-height:1.75
+    }
+
+    .about-photo{
+      width:100%;
+      padding:8px;
+      border-radius:21px;
+      background:rgba(255,255,255,.15);
+      box-shadow:0 15px 35px rgba(0,0,0,.22)
+    }
+
+    .about-photo img{
+      display:block;
+      width:100%;
+      height:215px;
+      object-fit:cover;
+      border-radius:15px
+    }
+
+    .about-content{
+      margin-top:25px;
+      padding:40px;
+      border-radius:26px;
+      background:#fff;
+      border:1px solid #e6edf5;
+      box-shadow:0 14px 40px rgba(20,35,60,.08)
+    }
+
+    .about-label{
+      color:#2196f3;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:1.2px;
+      text-transform:uppercase
+    }
+
+    .about-content h2{
+      margin:8px 0 15px;
+      font-size:clamp(28px,4vw,40px);
+      letter-spacing:-1px
+    }
+
+    .about-content h2 span{
+      color:#2196f3
+    }
+
+    .about-content>p{
+      max-width:900px;
+      margin:0 0 13px;
+      color:#64748b;
+      font-size:16px;
+      line-height:1.8
+    }
+
+    .about-features{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:15px;
+      margin-top:28px
+    }
+
+    .about-feature{
+      padding:19px;
+      border:1px solid #e6edf5;
+      border-radius:18px;
+      background:#f7fbff
+    }
+
+    .about-feature-icon{
+      width:42px;
+      height:42px;
+      display:grid;
+      place-items:center;
+      margin-bottom:12px;
+      border-radius:13px;
+      background:linear-gradient(135deg,#4facfe,#00c6ff);
+      color:#fff;
+      font-size:20px;
+      font-weight:800
+    }
+
+    .about-feature h3{
+      margin:0 0 6px;
+      font-size:15px
+    }
+
+    .about-feature p{
+      margin:0;
+      color:#7b8798;
+      font-size:13px;
+      line-height:1.55
+    }
+
+    .about-quote{
+      margin-top:28px;
+      padding:19px 21px;
+      border-left:4px solid #35afe5;
+      border-radius:16px;
+      background:linear-gradient(135deg,#eef8ff,#f8fbff)
+    }
+
+    .about-quote strong{
+      display:block;
+      font-size:17px
+    }
+
+    .about-quote span{
+      color:#718096;
+      font-size:14px
+    }
+
+    body.dark-mode .about-content{
+      background:#111c2e;
+      border-color:rgba(255,255,255,.07)
+    }
+
+    body.dark-mode .about-content>p{
+      color:#aebbcf
+    }
+
+    body.dark-mode .about-feature{
+      background:#162236;
+      border-color:rgba(255,255,255,.07)
+    }
+
+    body.dark-mode .about-feature p,body.dark-mode .about-quote span{
+      color:#9aa9bd
+    }
+
+    body.dark-mode .about-quote{
+      background:#172438
+    }
+
+    @media(max-width:700px){
+    .about-page{
+      padding:20px 14px 55px
+    }
+      
+    .about-hero{
+      grid-template-columns:1fr;
+      padding:29px 22px;
+      gap:24px;
+      border-radius:23px
+    }
+      
+    .about-hero h1{
+      font-size:46px
+    }
+ 
+    .about-hero-text{
+      font-size:15px
+    }
+ 
+    .about-photo{
+      width:100%
+    }
+
+    .about-photo img{
+      height:175px
+    }
+
+    .about-content{
+      padding:27px 21px;
+      border-radius:22px
+    }
+ 
+    .about-features{grid-template-columns:1fr
+    }
+}
+
+
+    /* ===== IKON PROFIL & PANEL LOGIN ===== */
+    .profile-btn{
+      width:42px;height:42px;border:0;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;background:transparent;color:#b51620;
+      transition:.2s ease;padding:7px
+    }
+    .profile-btn:hover{background:rgba(181,22,32,.10);transform:scale(1.06)}
+    .profile-btn svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    body.dark-mode .profile-btn{color:#ff626b}
+    .login-overlay{
+      position:fixed;inset:0;z-index:10000;
+      display:flex;justify-content:flex-end;
+      background:rgba(0,0,0,.62);
+      opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s ease
+    }
+    .login-overlay.show{opacity:1;visibility:visible}
+    .login-panel{
+      width:min(470px, min(72vw, 100%));height:100%;
+      box-sizing:border-box;overflow-y:auto;
+      padding:18px 24px 35px;
+      color:#fff;background:#812020;
+      box-shadow:-12px 0 35px rgba(0,0,0,.25);
+      transform:translateX(35px);transition:transform .25s ease
+    }
+    .login-overlay.show .login-panel{transform:translateX(0)}
+    .login-header{
+      min-height:48px;display:grid;grid-template-columns:38px 1fr 38px;
+      align-items:center;border-bottom:1px solid rgba(255,255,255,.12);
+      margin-bottom:27px;padding-bottom:12px
+    }
+    .login-header h2{margin:0;text-align:center;font-size:23px;font-weight:600}
+    .login-close{
+      border:0;background:transparent;color:#e8b7a1;font-size:31px;
+      line-height:1;cursor:pointer;padding:0
+    }
+    .login-panel form>label:not(.remember-row){
+      display:block;font-size:19px;font-weight:700;margin:0 0 12px
+    }
+    .login-input-wrap{
+      height:66px;box-sizing:border-box;display:flex;align-items:center;
+      gap:13px;padding:0 16px;margin-bottom:27px;
+      border:1px solid rgba(255,255,255,.48);background:rgba(255,255,255,.035)
+    }
+    .login-input-wrap>svg{width:23px;height:23px;fill:#fff;flex-shrink:0}
+    .login-input-wrap input{
+      width:100%;min-width:0;height:100%;border:0;outline:0;
+      background:transparent;color:#fff;font-size:17px
+    }
+    .password-toggle{
+      flex-shrink:0;border:0;padding:3px;background:transparent;color:#fff;cursor:pointer
+    }
+    .password-toggle svg{width:27px;height:27px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .remember-row{
+      display:flex;align-items:center;gap:9px;margin:0 0 35px;
+      color:#f2d9c9;font-size:15px;cursor:pointer
+    }
+    .remember-row input{width:20px;height:20px;accent-color:#1687ed}
+    .login-submit{
+      display:block;width:100%;height:60px;border:0;cursor:pointer;
+      background:#430707;color:#fff;font-size:21px;font-weight:400;
+      transition:background .2s ease
+    }
+    .login-submit:hover{background:#300303}
+    .forgot-link{
+      display:block;text-align:center;margin:5px 0 48px;
+      color:#d8b58d;text-decoration:none;font-size:16px
+    }
+    .forgot-link span{font-size:21px;margin-left:5px}
+    .login-register{
+      margin:0 0 10px;padding:25px 14px;
+      background:#430707;color:#e8d8d0;text-align:center;font-size:15px
+    }
+    .login-register a{color:#e8d5a4;font-weight:800;text-decoration:none}
+    .login-note{min-height:20px;color:#ffe0a8;font-size:13px;line-height:1.5}
+    @media(max-width:600px){
+      .navbar{gap:7px}
+      .nav-actions{gap:2px}
+      .profile-btn{width:38px;height:38px;padding:6px}
+      .login-panel{width:min(72vw, 430px);padding:17px 22px 30px}
+      .login-header{margin-bottom:25px}
+      .login-panel form>label:not(.remember-row){font-size:17px}
+      .login-input-wrap{height:58px;margin-bottom:25px}
+      .login-submit{height:56px}
+    }
+    @media(max-width:360px){
+      .login-panel{width:82vw;padding-left:17px;padding-right:17px}
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Tombol WhatsApp Mengambang -->
+  <!-- GANTI URL DI BAWAH dengan link Saluran WhatsApp kamu -->
+  <a
+    class="whatsapp-float"
+    href="https://whatsapp.com/channel/0029VbCrWgW8fewrQ4PWAq3E"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Buka Saluran WhatsApp"
+    title="Saluran WhatsApp"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M20.52 3.48A11.82 11.82 0 0 0 12.08 0C5.56 0 .25 5.3.25 11.82c0 2.08.54 4.11 1.56 5.9L.17 24l6.42-1.61a11.8 11.8 0 0 0 5.48 1.35h.01c6.52 0 11.82-5.3 11.82-11.82 0-3.16-1.23-6.13-3.38-8.44ZM12.09 21.7h-.01a9.84 9.84 0 0 1-5.02-1.37l-.36-.21-3.81.96 1.02-3.72-.23-.38a9.85 9.85 0 0 1-1.51-5.16C2.17 6.38 6.61 1.94 12.08 1.94c2.65 0 5.14 1.03 7.02 2.91a9.86 9.86 0 0 1 2.9 7.03c0 5.47-4.44 9.82-9.91 9.82Zm5.4-7.36c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.28-.47-2.44-1.5-.9-.8-1.5-1.79-1.67-2.09-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.5 1.69.64.71.23 1.36.2 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z"/>
+    </svg>
+  </a>
+  
+  <nav class="navbar">
+    <div class="nav-logo">
+      <div class="logo-icon">
+        <img src="logo.jpg" alt="Logo Kumpulan Apk">
+      </div>
+      <span>Kumpulan Apk</span>
+    </div>
+
+    <div class="search">
+      <span class="search-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="2.2"/>
+          <path d="M16 16L21 21" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <input id="search" type="search" placeholder="Cari aplikasi..." autocomplete="off" aria-label="Cari aplikasi">
+    </div>
+
+    <div class="nav-actions">
+      <button id="themeToggle" class="theme-btn" type="button" aria-label="Ubah tema">🌙</button>
+      <button id="loginOpen" class="profile-btn" type="button" aria-label="Buka login" title="Login">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="7.5" r="4" />
+          <path d="M3.8 21c.5-4.2 3.8-6.7 8.2-6.7s7.7 2.5 8.2 6.7" />
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Panel login yang dibuka melalui ikon pengguna -->
+  <div class="login-overlay" id="loginOverlay" aria-hidden="true">
+    <section class="login-panel" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+      <div class="login-header">
+        <button class="login-close" id="loginClose" type="button" aria-label="Tutup login">×</button>
+        <h2 id="loginTitle">Login</h2>
+        <span class="login-header-space"></span>
+      </div>
+
+      <form id="loginForm">
+        <label for="loginUsername">Nama pengguna</label>
+        <div class="login-input-wrap">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4.2 4.2 0 1 0 0-8.4 4.2 4.2 0 0 0 0 8.4ZM4.5 21v-1.4a7.5 7.5 0 0 1 15 0V21Z"/></svg>
+          <input id="loginUsername" name="username" type="text" autocomplete="username" required>
+        </div>
+
+        <label for="loginPassword">Kata sandi</label>
+        <div class="login-input-wrap">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V7a5 5 0 0 1 10 0v3h1.5A1.5 1.5 0 0 1 20 11.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 20.5v-9A1.5 1.5 0 0 1 5.5 10H7Zm2.5 0h5V7a2.5 2.5 0 0 0-5 0v3Z"/></svg>
+          <input id="loginPassword" name="password" type="password" autocomplete="current-password" required>
+          <button class="password-toggle" id="passwordToggle" type="button" aria-label="Tampilkan kata sandi">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+
+        <label class="remember-row">
+          <input type="checkbox" name="remember" checked>
+          <span>Ingat saya</span>
+        </label>
+
+        <button class="login-submit" type="submit">Login</button>
+        <a class="forgot-link" href="#" id="forgotLink">Lupa kata sandi? <span>↗</span></a>
+      </form>
+
+      <div class="login-register">
+        Tidak terdaftar? <a href="Functions/registrasi/register.html" id="registerLink">Daftar</a>
+      </div>
+      <p class="login-note" id="loginNote" role="status" aria-live="polite"></p>
+    </section>
+  </div>
+
+  <main class="about-page" id="tentang">
+    <section class="about-hero">
+      <div>
+        <span class="about-eyebrow">TENTANG WEBSITE</span>
+        <h1>Kumpulan <span>Aplikasi</span></h1>
+        <p class="about-hero-text">
+          Satu tempat untuk menemukan dan mengakses berbagai aplikasi
+          dengan cepat, mudah, dan nyaman.
+        </p>
+      </div>
+      <div class="about-photo">
+        <img src="mahjong.jpg" alt="mahjong">
+      </div>
+    </section>
+
+    <section class="about-content">
+      <div class="about-label">Tentang Kami</div>
+      <h2>Semua aplikasi, lebih <span>praktis.</span></h2>
+      <p>
+        Kumpulan Aplikasi adalah website yang dirancang untuk memudahkan
+        kamu menemukan dan mengakses berbagai aplikasi dalam satu tempat.
+        Dengan tampilan yang modern, sederhana, dan responsif, kamu dapat
+        mencari aplikasi yang diinginkan dengan cepat dan mudah.
+      </p>
+      <p>
+        Setiap aplikasi dilengkapi dengan informasi singkat dan tombol
+        <strong>“Buka Aplikasi”</strong>, sehingga akses menjadi lebih
+        praktis tanpa harus mencari aplikasi di banyak tempat.
+      </p>
+
+      <div class="about-features">
+        <div class="about-feature">
+          <div class="about-feature-icon">⌕</div>
+          <h3>Mudah Dicari</h3>
+          <p>Temukan aplikasi dengan fitur pencarian yang praktis.</p>
+        </div>
+        <div class="about-feature">
+          <div class="about-feature-icon">↗</div>
+          <h3>Akses Cepat</h3>
+          <p>Buka aplikasi pilihanmu hanya dengan satu tombol.</p>
+        </div>
+        <div class="about-feature">
+          <div class="about-feature-icon">✦</div>
+          <h3>Modern & Responsif</h3>
+          <p>Tampilan nyaman digunakan di HP maupun perangkat lainnya.</p>
+        </div>
+      </div>
+
+      <div class="about-quote">
+        <strong>Temukan aplikasimu.</strong>
+        <span>Akses dengan mudah. Nikmati kemudahannya.</span>
+      </div>
+    </section>
+  </main>
+
+  
+<script>
+  const themeToggle = document.getElementById("themeToggle");
+  const loginOpen = document.getElementById("loginOpen");
+  const loginClose = document.getElementById("loginClose");
+  const loginOverlay = document.getElementById("loginOverlay");
+  const loginPanel = document.querySelector(".login-panel");
+  const passwordInput = document.getElementById("loginPassword");
+  const passwordToggle = document.getElementById("passwordToggle");
+  
+
+  // Tema terang/gelap
+  themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    const dark = document.body.classList.contains("dark-mode");
+    themeToggle.textContent = dark ? "☀️" : "🌙";
+    localStorage.setItem("theme", dark ? "dark" : "light");
+  });
+  if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark-mode");
+    themeToggle.textContent = "☀️";
+  }
+
+  // Buka dan tutup panel login
+  function openLogin() {
+    loginOverlay.classList.add("show");
+    loginOverlay.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    setTimeout(() => document.getElementById("loginUsername").focus(), 150);
+  }
+  function closeLogin() {
+    loginOverlay.classList.remove("show");
+    loginOverlay.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    loginOpen.focus();
+  }
+  loginOpen.addEventListener("click", openLogin);
+  loginClose.addEventListener("click", closeLogin);
+  loginOverlay.addEventListener("click", event => {
+    if (event.target === loginOverlay) closeLogin();
+  });
+  loginPanel.addEventListener("click", event => event.stopPropagation());
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && loginOverlay.classList.contains("show")) closeLogin();
+  });
+
+  // Tampilkan/sembunyikan kata sandi
+  passwordToggle.addEventListener("click", () => {
+    const show = passwordInput.type === "password";
+    passwordInput.type = show ? "text" : "password";
+    passwordToggle.setAttribute("aria-label", show ? "Sembunyikan kata sandi" : "Tampilkan kata sandi");
+  });
+
+  
+
+  // Pencarian (aktif jika halaman memiliki daftar kartu aplikasi).
+  const search = document.getElementById("search");
+  const cards = document.querySelectorAll(".card");
+  const empty = document.getElementById("empty");
+  if (search && cards.length && empty) {
+    search.addEventListener("input", function () {
+      const keyword = this.value.toLowerCase().trim();
+      let visible = 0;
+      cards.forEach(card => {
+        const name = (card.dataset.name || "").toLowerCase();
+        const show = name.includes(keyword);
+        card.style.display = show ? "" : "none";
+        if (show) visible++;
+      });
+      empty.style.display = visible === 0 ? "block" : "none";
+    });
+  }
+</script>
+  
+</body>
+</html>
